@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+}
+
+h1 {
+    color: #712b2b;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+.highlight {
+    color: #712b2b;
+    font-weight: bold;
+}
+
+.intro {
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+}
+
+.intro .btn {
+    background-color: #b33e3e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.info-img {
+    width: 40%;
+    margin: 10px;
+}
+
+.video-section {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.video-img {
+    width: 80%;
+    border-radius: 10px;
+}
+
+.why-choose {
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.feature {
+    width: 40%;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.feature img {
+    width: 40px;
+}
+
+.types {
+    text-align: center;
+    padding: 20px;
+}
+
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.category {
+    background-color: #b33e3e;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
