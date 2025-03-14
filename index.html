@@ -3,34 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pallavarajan - PMS Bazaar</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>PMS Bazaar Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #chat-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: blue;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        #chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        #chat-header {
+            background: blue;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #chat-body {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+
+        #chat-footer {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            background: #f1f1f1;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #send-btn {
+            background: blue;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin-left: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #send-btn:hover {
+            background: darkblue;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Pallavarajan</h1>
-            <p>Founder & Director of PMS Bazaar</p>
-        </header>
-        
-        <section class="gallery">
-            <img src="https://tse1.mm.bing.net/th?id=OIP.K2upd7kskVnaGH1GTuqG1gHaEK&pid=Api" alt="Pallavarajan 1">
-            <img src="https://tse4.mm.bing.net/th?id=OIP.BPEwkx2lAEQ1_KnTBhPfhwHaEK&pid=Api" alt="Pallavarajan 2">
-            <img src="https://tse2.mm.bing.net/th?id=OIP.8Z_1dBpsHb4fLqxATME2GAHaE8&pid=Api" alt="Pallavarajan 3">
-            <img src="https://tse1.mm.bing.net/th?id=OIP.yvj_D6YermlZp9xcolfWGgHaEK&pid=Api" alt="Pallavarajan 4">
-        </section>
-        
-        <section class="bio">
-            <h2>About Pallavarajan</h2>
-            <p>Pallavarajan is the Founder and Director of PMS Bazaar, India's leading PMS and AIF investment platform. With over 17 years of experience in the financial sector, he has been instrumental in guiding high-net-worth individuals towards better financial decisions.</p>
-            <button onclick="showMessage()">Learn More</button>
-        </section>
+
+    <div id="chat-icon">💬</div>
+
+    <div id="chatbot-container">
+        <div id="chat-header">PMS Bazaar</div>
+        <div id="chat-body">
+            <p><b>PMS Bazaar:</b> Hello! How can I assist you today?</p>
+        </div>
+        <div id="chat-footer">
+            <input type="text" id="user-input" placeholder="Type your question..." />
+            <button id="send-btn">Send</button>
+        </div>
     </div>
 
     <script>
-        function showMessage() {
-            alert('Visit PMS Bazaar for more details about Pallavarajan and his contributions to financial services.');
+        document.getElementById("chat-icon").addEventListener("click", function () {
+            let chatbox = document.getElementById("chatbot-container");
+            chatbox.style.display = (chatbox.style.display === "none" || chatbox.style.display === "") ? "flex" : "none";
+        });
+
+        document.getElementById("send-btn").addEventListener("click", function () {
+            sendMessage();
+        });
+
+        document.getElementById("user-input").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            let userInput = document.getElementById("user-input").value.trim();
+            if (userInput === "") return;
+
+            let chatBody = document.getElementById("chat-body");
+            let userMessage = document.createElement("p");
+            userMessage.innerHTML = `<b>You:</b> ${userInput}`;
+            chatBody.appendChild(userMessage);
+
+            let botResponse = getBotResponse(userInput);
+            let botMessage = document.createElement("p");
+            botMessage.innerHTML = `<b>PMS Bazaar:</b> ${botResponse}`;
+            chatBody.appendChild(botMessage);
+
+            document.getElementById("user-input").value = "";
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function getBotResponse(input) {
+            input = input.toLowerCase();
+
+            let responses = {
+                "hi": "Hello! How can I assist you with PMS Bazaar?",
+                "hello": "Hi there! How can I help you?",
+                "what is pms bazaar": "PMS Bazaar is a leading platform for Portfolio Management Services (PMS) and Alternative Investment Funds (AIF) in India.",
+                "investment": "We provide research-backed insights on PMS and AIF investments. Let me know if you need specific details.",
+                "contact": "You can reach out to us at [PMS Bazaar's Contact Page](https://www.pmsbazaar.com/contact)",
+                "who is pallavarajan": "Pallavarajan is a key figure in PMS Bazaar, known for his expertise in portfolio management services and alternative investments.",
+                "what does pallavarajan do": "Pallavarajan specializes in PMS and AIF investments, helping clients make informed financial decisions.",
+                "how to invest in pms bazaar": "To invest in PMS Bazaar, you can visit our official website and explore various PMS and AIF options available.",
+                "benefits of pms": "Portfolio Management Services (PMS) offer personalized investment strategies, professional fund management, and better returns compared to traditional mutual funds.",
+                "pms vs mutual funds": "PMS provides customized investment solutions for high-net-worth individuals, whereas mutual funds cater to a broader audience with pooled investments.",
+                "minimum investment in pms": "The minimum investment required for PMS varies but is typically around ₹50 lakh in India.",
+                "fees in pms": "PMS fees include fixed management fees and performance-based fees, which depend on the chosen investment strategy.",
+                "how to contact pallavarajan": "You can contact Pallavarajan through PMS Bazaar's official website or LinkedIn profile.",
+                "is pms risky": "PMS investments come with market risks but offer higher returns for investors with a long-term perspective and risk appetite.",
+                "exit policy of pms": "The exit policies of PMS vary but typically involve a minimum lock-in period and exit loads.",
+            };
+
+            return responses[input] || "I'm here to help! Please ask anything about PMS Bazaar.";
         }
     </script>
 </body>
 </html>
+
