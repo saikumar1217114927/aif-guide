@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open For Subscription AIF(s)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd; /* Bottom border for the tab row */
+        }
+
+        .tab {
+            padding: 10px 15px;
+            background: none; /* No background */
+            border: none;
+            border-radius: 0; /* Remove rounded corners */
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            position: relative; /* For positioning the underline */
+            transition: color 0.3s;
+        }
+
+        .tab.active {
+            color: #007bff; /* Blue text for active tab */
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; /* Align with the bottom border */
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #007bff; /* Blue underline */
+        }
+
+        .tab:hover {
+            color: #007bff; /* Blue text on hover */
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .categories {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category {
+            padding: 8px 15px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .category.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .category:hover {
+            background-color: #e0e0e0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f5f7fa;
+            color: #333;
+            font-weight: bold;
+        }
+
+        td {
+            color: #666;
+        }
+
+        .fund-logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .fund-name {
+            display: flex;
+            align-items: center;
+        }
+
+        .fund-name span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .fund-name small {
+            display: block;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .asset-type {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Open For Subscription AIF(s)</h1>
+        <p>In this section, explore the Top Performing PMS Products, Top Performing AIF Products, and AIF Products that are open for subscription across different Categories. Here, you can also explore our PMS & AIF Product suggestions, identified with our proprietary D (Due diligence), R (Risk and returns ratios), H (History of the fund manager and fund house), P (Process, Performance, and Product) process.</p>
+        
+        <div class="tabs">
+            <button class="tab" data-tab="suggested-pms">SUGGESTED PMS</button>
+            <button class="tab" data-tab="suggested-aif">SUGGESTED AIF</button>
+            <button class="tab" data-tab="top-pms">TOP PERFORMING PMS FUNDS</button>
+            <button class="tab" data-tab="top-aif">TOP PERFORMING AIF FUNDS</button>
+            <button class="tab active" data-tab="open-aif">AIF OPEN FOR SUBSCRIPTION</button>
+            <button class="tab" data-tab="pms-factsheets">PMS FACTSHEETS</button>
+            <button class="tab" data-tab="aif-factsheets">AIF FACTSHEETS</button>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search by Investment Approach Name" onkeyup="filterTable()">
+        </div>
+
+        <div class="categories">
+            <button class="category active" data-category="all">ALL</button>
+            <button class="category" data-category="cat-iii-long-only">CAT II - LONG ONLY</button>
+            <button class="category" data-category="cat-iii-long-short">CAT II - LONG SHORT</button>
+            <button class="category" data-category="cat-iii-debt">CAT II - DEBT</button>
+            <button class="category" data-category="cat-ii-debt">CAT II - DEBT</button>
+            <button class="category" data-category="cat-i">CAT I</button>
+        </div>
+
+        <table id="fundTable">
+            <thead>
+                <tr>
+                    <th>FUNDS</th>
+                    <th>ASSETS</th>
+                    <th>STRUCTURE</th>
+                    <th>MIN. COMMITMENT</th>
+                    <th>INITIAL DRAWDOWN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-category="cat-iii-long-only">
+                    <td class="fund-name">
+                        <img src="https://www.pmsaifworld.com/wp-content/uploads/ampersand-logo.png" alt="Logo" class="fund-logo">
+                        <div>
+    <span>Amperstand Capital Trust - Growth Opportunities Fund Scheme I ***</span>
+
+                            <small>CAT III - LONG ONLY</small>
+                        </div>
+                    </td>
+                    <td class="asset-type">AIF</td>
+                    <td>Open Ended</td>
+                    <td>10000000</td>
+                    <td>10000000</td>
+                </tr>
+                <tr data-category="cat-iii-long-short">
+                    <td class="fund-name">
+                        <img src="https://akm-img-a-in.tosshub.com/businesstoday/resource/market/amc-logo/tata-mutual-fund.png" alt="Logo" class="fund-logo">
+                        <div>
+                            <span>Tata Asset Management Ltd - Equity Plus Absolute Returns Fund #</span>
+                            <small>CAT III - LONG SHORT - CONSERVATIVE</small>
+                        </div>
+                    </td>
+                    <td class="asset-type">AIF</td>
+                    <td>Open Ended</td>
+                    <td>10000000</td>
+                    <td>10000000</td>
+                </tr>
+                <tr data-category="cat-iii-long-short">
+                    <td class="fund-name">
+                        <img src="https://i0.wp.com/opportunitycell.com/wp-content/uploads/2021/05/55957e011aab79e65206f3dd0ff37a9234053790a2288aebc0c6534571528b5c.jpg?fit=750%2C375&ssl=1" alt="Logo" class="fund-logo">
+                        <div>
+                            <span>Tata Asset Management Ltd - Absolute Return Fund #</span>
+                            <small>CAT III - LONG SHORT - CONSERVATIVE</small>
+                        </div>
+                    </td>
+                    <td class="asset-type">AIF</td>
+                    <td>Open Ended</td>
+                    <td>1000000</td>
+                    <td>10000000</td>
+                </tr>
+                <tr data-category="cat-iii-long-only">
+                    <td class="fund-name">
+                        <img src="https://via.placeholder.com/40" alt="Logo" class="fund-logo">
+                        <div>
+                            <span>Accuracap - AlphaGenNext Fund ***</span>
+                            <small>CAT III - LONG ONLY</small>
+                        </div>
+                    </td>
+                    <td class="asset-type">AIF</td>
+                    <td>Open Ended</td>
+                    <td>10000000</td>
+                    <td>10000000</td>
+                </tr>
+                <tr data-category="cat-iii-long-only">
+                    <td class="fund-name">
+                        <img src="https://via.placeholder.com/40" alt="Logo" class="fund-logo">
+                        <div>
+                            <span>Edelweiss Asset Management Ltd - Alternative Equity Scheme #**</span>
+                            <small>CAT III - LONG ONLY</small>
+                        </div>
+                    </td>
+                    <td class="asset-type">AIF</td>
+                    <td>Open Ended</td>
+                    <td>10000000</td>
+                    <td>10000000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Tab functionality
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // In a real application, this would load different data
+                console.log(`Tab switched to: ${tab.dataset.tab}`);
+            });
+        });
+
+        // Category filter functionality
+        const categories = document.querySelectorAll('.category');
+        const rows = document.querySelectorAll('#fundTable tbody tr');
+
+        categories.forEach(category => {
+            category.addEventListener('click', () => {
+                categories.forEach(cat => cat.classList.remove('active'));
+                category.classList.add('active');
+
+                const selectedCategory = category.dataset.category;
+
+                rows.forEach(row => {
+                    if (selectedCategory === 'all' || row.dataset.category === selectedCategory) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        function filterTable() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#fundTable tbody tr');
+
+            rows.forEach(row => {
+                const fundName = row.querySelector('.fund-name span').textContent.toLowerCase();
+                if (fundName.includes(input)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
